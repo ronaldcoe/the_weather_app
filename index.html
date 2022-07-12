@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+    <title>Weather App</title>
+    
+</head>
+<body>
+    <div id="bImg"></div>
+    <h1 id="title">The Weather App</h1>
+    
+    <div id="searchCont">
+
+    </div>
+    <section id="weather">
+        <h2>Change the location</h2>
+        <input type="text" id="loc">
+        <input type="submit" value="Search" id="search"></input>
+        <div id="current">
+            <span class="material-icons">
+                place
+                </span>
+            <p id="address"></p>
+            <img id='weatherIcon' src="">
+            <p id="currentTemp"></p>
+            <p id="description"></p>
+            <div id="detail">
+                <div class="detailCont">
+                    <p class="detailsTitle">Feels Like</p>
+                    <p id="feelsLike"></p>
+                </div>
+                <div class="detailCont">
+                    <p class="detailsTitle">Wind Speed</p>
+                    <p id="windSpeed"></p>
+                </div>
+                <div class="detailCont">
+                    <p class="detailsTitle">Humidity</p>
+                    <p id="humidity"></p>
+                </div>
+                <div class="detailCont">
+                    <p class="detailsTitle">Visibility</p>
+                    <p id="visibility"></p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="nextDays"></div>
+    </section>
+    
+</body>
+<script src="script/script.js"></script>
+</html>
