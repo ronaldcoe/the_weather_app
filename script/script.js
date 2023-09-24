@@ -1,5 +1,5 @@
 
-document.querySelector('#loc').value = 'Rexburg';
+document.querySelector('#loc').value = 'USA';
 document.querySelector('#search').addEventListener('click', newSearch);
 
 newSearch();
@@ -9,11 +9,6 @@ function getTime() {
     let today = new Date();
     let time = today.getHours();
     return time
-}
-function newSearch(){
-    let loc = document.querySelector('#loc').value;
-    let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}?unitGroup=us&key=EWQF52DJKF9B9NEMA45J3VZGW&contentType=json`;
-    fetch(url).then(convertToJson).then(displayCurrentTemp);
 }
 
 
@@ -67,4 +62,48 @@ function displayCurrentTemp(data) {
 };
 
 
+/*----------------------------- NEWS SCRIPT ------------------------ */
 
+
+
+async function getDataNews(location) {
+    const newsAPI = `https://newsdata.io/api/1/news?apikey=pub_300004f5281879b1b30b50695cbb6edfb6b22&q=${location}&language=en&image=1`
+    let dataNews;
+    try {
+        const response = await fetch(newsAPI)
+        const data = await response.json()
+        dataNews = data
+        displayNews(dataNews)
+    } catch (error){
+        console.log(error)
+    }
+}
+
+
+function displayNews(data) {
+    const newsContainer = document.querySelector("#news")
+    const newsHtml = data.results.map(newItem => `
+        <div class="new_container">
+            <h2><a href=${newItem.link} target="__blank">${newItem.title}</a></h2>
+            <div class="newContent">
+                ${newItem.image_url != null? `<img src="${newItem.image_url}" alt="news image"/>` :""}
+                <p class="new_description">${newItem.description.split(' ').slice(0, 50).join(' ')}${newItem.description.split(' ').length > 50 ? '...' : ''}</p>
+            </div>
+        </div>
+    `)
+    console.log(newsHtml)
+    const newsHtmlString = newsHtml.join('');
+    console.log(newsHtml)
+    newsContainer.insertAdjacentHTML("afterbegin", newsHtmlString) 
+}
+
+getDataNews(loc)
+
+
+
+function newSearch(){
+    let loc = document.querySelector('#loc').value;
+    let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}?unitGroup=us&key=EWQF52DJKF9B9NEMA45J3VZGW&contentType=json`;
+    fetch(url).then(convertToJson).then(displayCurrentTemp);
+    getDataNews(loc)
+}
