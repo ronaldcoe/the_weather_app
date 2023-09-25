@@ -82,7 +82,10 @@ async function getDataNews(location) {
         const response = await fetch(newsAPI)
         const data = await response.json()
         dataNews = data
-        displayNews(dataNews)
+        console.log(dataNews)
+        
+            displayNews(dataNews)
+        
     } catch (error){
         console.log(error)
     }

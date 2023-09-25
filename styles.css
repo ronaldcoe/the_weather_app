@@ -21,6 +21,9 @@ nav {
     padding: 20px;
     background-color: #100a40;
 }
+#celcius, #farenheit {
+    cursor: pointer;
+}
 main {
     background-color: white;
 
@@ -257,6 +260,7 @@ footer {
 }
 .new_description {
     max-width: 320px;
+    font-size: 14px;
 }
 
 .summary_todo {
