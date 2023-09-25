@@ -84,7 +84,7 @@ async function getDataNews(location) {
         dataNews = data
         console.log(dataNews)
         
-            displayNews(dataNews)
+        displayNews(dataNews)
         
     } catch (error){
         console.log(error)
