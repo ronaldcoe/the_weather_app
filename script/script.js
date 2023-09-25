@@ -24,10 +24,7 @@ function convertToJson(response) {
 function displayCurrentTemp(data, value) {
     document.querySelector('.nextDays').innerHTML = '';
 
-    // tempList.forEach((currentItem) => {
-    //     const html = `<li>${currentItem.tempmax}</li>`;
-    //     outputElement.innerHTML += html;
-    // })
+
     let img = data.days[0].hours[getTime()].icon;
     document.querySelector('#weatherIcon').src = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/${img}.png`;
     console.log(img);
@@ -95,6 +92,7 @@ async function getDataNews(location) {
 function displayNews(data) {
     const newsContainer = document.querySelector("#news")
     const newsHtml = data.results.map(newItem => `
+       
         <div class="new_container">
             <h2><a href=${newItem.link} target="__blank">${newItem.title}</a></h2>
             <div class="newContent">
@@ -128,3 +126,117 @@ function newSearch(){
 
 document.querySelector("#celcius").addEventListener("click", displayCelcius)
 document.querySelector("#farenheit").addEventListener("click", newSearch)
+
+
+
+
+/*------------------ TASKS -------------*/
+let addTaskBtn = document.querySelector("#addTask");
+let oldTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let completedTasks = JSON.parse(localStorage.getItem("completed")) || [];
+
+function displayTasks(tasks, containerId, completed = false) {
+    const tasksContainer = document.querySelector(containerId);
+    tasksContainer.innerHTML = ''; // Clear the container first
+
+    tasks.forEach((task, index) => {
+        const taskItem = document.createElement("div");
+        taskItem.classList.add("task");
+        taskItem.innerHTML = `
+            <p class="task_description">${task}</p>
+            <div style="flex:none">
+            <span class="material-symbols-outlined complete">
+                check_circle
+            </span>
+            <span class="material-symbols-outlined delete">
+                delete
+            </span>
+              
+            </div>
+        `;
+
+        // Add event listeners for complete and delete
+        const completeButton = taskItem.querySelector(".complete");
+        const deleteButton = taskItem.querySelector(".delete");
+
+        completeButton.addEventListener("click", () => {
+            if (completed) {
+                uncompleteTask(index);
+            } else {
+                completeTask(index);
+            }
+        });
+
+        deleteButton.addEventListener("click", () => {
+            deleteTask(index, completed);
+        });
+
+        tasksContainer.appendChild(taskItem);
+    });
+}
+
+function addTask() {
+    let task = document.querySelector("#task_input").value;
+
+    if (task.trim() === "") {
+        alert("Task cannot be empty.");
+        return;
+    }
+
+    oldTasks.push(task);
+    displayTasks(oldTasks, "#tasks");
+
+    localStorage.setItem("tasks", JSON.stringify(oldTasks));
+    document.querySelector("#task_input").value = "";
+    updateTaskCounts()
+}
+
+function completeTask(index) {
+    const completedTask = oldTasks.splice(index, 1)[0];
+    completedTasks.push(completedTask);
+
+    displayTasks(oldTasks, "#tasks");
+    displayTasks(completedTasks, "#completed", true);
+
+    localStorage.setItem("tasks", JSON.stringify(oldTasks));
+    localStorage.setItem("completed", JSON.stringify(completedTasks));
+    updateTaskCounts()
+}
+
+function uncompleteTask(index) {
+    const uncompletedTask = completedTasks.splice(index, 1)[0];
+    oldTasks.push(uncompletedTask);
+
+    displayTasks(oldTasks, "#tasks");
+    displayTasks(completedTasks, "#completed", true);
+
+    localStorage.setItem("tasks", JSON.stringify(oldTasks));
+    localStorage.setItem("completed", JSON.stringify(completedTasks));
+    updateTaskCounts()
+}
+
+function deleteTask(index, completed) {
+    if (completed) {
+        completedTasks.splice(index, 1);
+        displayTasks(completedTasks, "#completed", true);
+        localStorage.setItem("completed", JSON.stringify(completedTasks));
+        updateTaskCounts()
+    } else {
+        oldTasks.splice(index, 1);
+        displayTasks(oldTasks, "#tasks");
+        localStorage.setItem("tasks", JSON.stringify(oldTasks));
+        updateTaskCounts()
+    }
+}
+function updateTaskCounts() {
+    const totalTasksCount = oldTasks.length + completedTasks.length;
+    const completedTasksCount = completedTasks.length;
+
+    document.querySelector("#number_total_tasks").textContent = totalTasksCount;
+    document.querySelector("#number_completed_tasks").textContent = completedTasksCount;
+}
+
+displayTasks(oldTasks, "#tasks");
+displayTasks(completedTasks, "#completed", true);
+addTaskBtn.addEventListener("click", addTask);
+updateTaskCounts()

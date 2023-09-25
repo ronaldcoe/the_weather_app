@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Weather App</title>
     
 </head>
 <body>
     <nav>
-        <h1 id="title">The Weather App</h1>
+        <h1 id="title">All in One</h1>
         <h2>Change the location</h2>
         <div>
             <input type="text" id="loc">
@@ -23,42 +24,93 @@
         </div>
     </nav>
     <main>
+        <div>
+            <h1>Recent News</h1>
+            <section id="news">
+            
+            </section>
+        </div>
     <section id="weather">
-        
+        <h1>Weather Forecast</h1>
         <div id="current">
-            <span class="material-icons">
-                place
+            <div style="display: flex; align-items: center;">
+                <span class="material-icons">
+                    place
                 </span>
-            <p id="address"></p>
-            <img id='weatherIcon' src="">
-            <p id="currentTemp"></p>
+                <p id="address"></p>
+            </div>
+            <div  style="display: flex; align-items: center; justify-content: space-between;">
+                <p id="currentTemp"></p>
+                <img id='weatherIcon' src="">
+                
+            </div>
             <p id="description"></p>
             <div id="detail">
                 <div class="detailCont">
                     <p class="detailsTitle">Feels Like</p>
-                    <p id="feelsLike"></p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="material-symbols-outlined">
+                            device_thermostat
+                        </span>
+                        <p id="feelsLike"></p>
+                        
+                    </div>
                 </div>
                 <div class="detailCont">
                     <p class="detailsTitle">Wind Speed</p>
-                    <p id="windSpeed"></p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="material-symbols-outlined">
+                            air
+                        </span>
+                        <p id="windSpeed"></p>
+                    </div>
                 </div>
                 <div class="detailCont">
                     <p class="detailsTitle">Humidity</p>
-                    <p id="humidity"></p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="material-symbols-outlined">
+                            opacity
+                        </span>
+                        <p id="humidity"></p>
+                    </div>
                 </div>
                 <div class="detailCont">
                     <p class="detailsTitle">Visibility</p>
-                    <p id="visibility"></p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="material-symbols-outlined">
+                            visibility
+                            </span>
+                        <p id="visibility"></p>
+                    </div>
                 </div>
             </div>
         </div>
     
         <div class="nextDays"></div>
     </section>
-    <section id="news">
-        
+    
+    <section id="todo">
+        <h1>Todo list</h1>
+        <div class="summary_todo">
+            <h2>Completed</h2>
+            <p id="completed_tasks">
+                <span id="number_completed_tasks"></span>
+                <span>/</span>
+                <span id="number_total_tasks"></span> 
+                
+            </p>
+        </div>
+        <input type="text" id="task_input" placeholder="Write your task">
+        <button id="addTask">+ Add task</button>
+        <h3>To do</h3>
+        <div id="tasks">
+
+        </div>
+        <h3>Completed Tasks</h3>
+        <div id="completed">
+
+        </div>
     </section>
-   
     </main>
     <footer>Ronald Coello ©</footer>
 </body>
