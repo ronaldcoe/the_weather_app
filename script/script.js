@@ -84,7 +84,9 @@ async function getDataNews(location) {
         dataNews = data
         console.log(dataNews)
         
-        displayNews(dataNews)
+        if(dataNews.totalResults > 0) {
+            displayNews(dataNews)
+        }
         
     } catch (error){
         console.log(error)
@@ -149,7 +151,7 @@ function displayTasks(tasks, containerId, completed = false) {
             <p class="task_description">${task}</p>
             <div style="flex:none">
             <span class="material-symbols-outlined complete">
-                check_circle
+                ${containerId == "#completed"?"block":"check_circle"}
             </span>
             <span class="material-symbols-outlined delete">
                 delete
